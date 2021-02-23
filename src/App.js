@@ -1,8 +1,13 @@
-import React, { useContext } from "react";
-import { Context } from "./Context";
+import React from "react";
+import Board from "./Components/Board";
+import "./Style.css";
+
 function App() {
-  const { list } = useContext(Context);
-  return <div>{list}</div>;
+  return (
+    <div>
+      <Board />
+    </div>
+  );
 }
 
 export default App;
