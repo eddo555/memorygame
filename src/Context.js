@@ -1,30 +1,49 @@
 import React, { createContext, useEffect, useState } from "react";
+// import useActiveTile from "./Hooks/useActiveTile";
 
 const Context = createContext();
 
 function ContextProvider(props) {
   const [list, setList] = useState([]);
   const [reset, setReset] = useState(false);
+  // const { activate } = useActiveTile();
+  const [selectedNumber, setSelectedNumber] = useState();
+  const [array, setArray] = useState([]);
 
   useEffect(() => {
-    let array = [];
+    let num = [];
 
-    for (let i = 0; i < 23; i++) {
-      array.push(i + 1);
+    for (let i = 0; i < 10; i++) {
+      num.push(i + 1);
+    }
+    for (let j = 0; j < 10; j++) {
+      num.push(j + 1);
     }
 
-    array = array.sort(() => Math.random() - 0.5);
-    setList(array);
+    num = num.sort(() => Math.random() - 0.5);
+    setList(num);
   }, [reset]);
-  const buttonToggle = (id) => {
-    console.log(id + 1);
+
+  useEffect(() => {
+    setArray((array) => [...array, selectedNumber]);
+    // var temp = Array(2);
+
+    // temp.push(selectedNumber);
+
+    // console.log(temp);
+    //set array here then setArray
+  }, [selectedNumber]);
+
+  const buttonToggle = (index) => {
+    console.log("Context => ", index);
+    setSelectedNumber(index);
   };
 
   const randomize = () => {
     setReset(!reset);
   };
   return (
-    <Context.Provider value={{ list, buttonToggle, randomize }}>
+    <Context.Provider value={{ list, buttonToggle, randomize, array }}>
       {props.children}
     </Context.Provider>
   );

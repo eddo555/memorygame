@@ -1,14 +1,24 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Context } from "../Context";
+// import useActiveTile from "../Hooks/useActiveTile";
 
 function Board() {
-  const { list, buttonToggle, randomize } = useContext(Context);
+  const { list, buttonToggle, randomize, array } = useContext(Context);
 
-  const boardLayout = list.map((items, index) => (
-    <div className="tile" key={index} onClick={() => buttonToggle(index)}>
-      {items}
+  console.log("array board => ", array);
+  const boardLayout = list.map((board, index) => (
+    <div
+      className="tile"
+      key={index}
+      onClick={() => buttonToggle(index)}
+      // onClick={() =>
+      //   setSelectedNumber((selectedNumber) => [...selectedNumber, index])
+      // }
+    >
+      {board}
     </div>
   ));
+
   return (
     <div>
       <div className="container">
