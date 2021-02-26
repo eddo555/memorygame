@@ -1,11 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 function useActiveTile() {
-  const [state, setState] = useState(false);
-  function activate() {
-    setState((prev) => !prev);
+  const [isClicked, setIsClicked] = useState(false);
+  const ref = useRef(false);
+
+  function toggle() {
+    setIsClicked((prev) => !prev);
   }
-  return { state, activate };
+
+  useEffect(() => {
+    setIsClicked((prev) => !prev);
+    ref.current = true;
+  }, []);
+
+  return [isClicked, ref];
 }
 
 export default useActiveTile;

@@ -9,6 +9,10 @@ function ContextProvider(props) {
   // const { activate } = useActiveTile();
   const [selectedNumber, setSelectedNumber] = useState();
   const [array, setArray] = useState([]);
+  const [array2, setArray2] = useState([]);
+  const [count, setCount] = useState(0);
+
+  const [index, setIndex] = useState();
 
   useEffect(() => {
     let num = [];
@@ -25,26 +29,38 @@ function ContextProvider(props) {
   }, [reset]);
 
   useEffect(() => {
-    setArray((array) => [...array, selectedNumber]);
-    // var temp = Array(2);
-
-    // temp.push(selectedNumber);
-
-    // console.log(temp);
-    //set array here then setArray
-  }, [selectedNumber]);
+    activeTiles();
+    console.log("includes 1??", array.includes(1));
+    console.log("includes 2??", array2.includes(1));
+    count % 2 === 0
+      ? setArray((array) => [...array, selectedNumber])
+      : setArray2((array2) => [...array2, selectedNumber]);
+    // if match
+    if (array.length > 0) {
+      setArray([]);
+    }
+    if (array2.length > 0) {
+      setArray2([]);
+    }
+  }, [count]);
 
   const buttonToggle = (value) => {
+    setCount((prev) => prev + 1);
+
     console.log("Context => ", value);
     setSelectedNumber(value);
   };
 
   const randomize = () => {
     setReset(!reset);
+    setArray([]);
+    setArray2([]);
   };
 
+  const activeTiles = () => {};
+
   return (
-    <Context.Provider value={{ list, buttonToggle, randomize, array }}>
+    <Context.Provider value={{ list, buttonToggle, randomize, array, array2 }}>
       {props.children}
     </Context.Provider>
   );
