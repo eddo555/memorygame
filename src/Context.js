@@ -34,14 +34,15 @@ function ContextProvider(props) {
     //set array here then setArray
   }, [selectedNumber]);
 
-  const buttonToggle = (index) => {
-    console.log("Context => ", index);
-    setSelectedNumber(index);
+  const buttonToggle = (value) => {
+    console.log("Context => ", value);
+    setSelectedNumber(value);
   };
 
   const randomize = () => {
     setReset(!reset);
   };
+
   return (
     <Context.Provider value={{ list, buttonToggle, randomize, array }}>
       {props.children}

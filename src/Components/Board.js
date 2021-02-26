@@ -10,7 +10,7 @@ function Board() {
     <div
       className="tile"
       key={index}
-      onClick={() => buttonToggle(index)}
+      onClick={() => buttonToggle(board)}
       // onClick={() =>
       //   setSelectedNumber((selectedNumber) => [...selectedNumber, index])
       // }
