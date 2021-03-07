@@ -1,18 +1,13 @@
 import React, { createContext, useEffect, useState } from "react";
-// import useActiveTile from "./Hooks/useActiveTile";
 
 const Context = createContext();
 
 function ContextProvider(props) {
   const [list, setList] = useState([]);
   const [reset, setReset] = useState(false);
-  // const { activate } = useActiveTile();
-  const [selectedNumber, setSelectedNumber] = useState();
   const [array, setArray] = useState([]);
-  const [array2, setArray2] = useState([]);
-  const [count, setCount] = useState(0);
 
-  const [index, setIndex] = useState();
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
     let num = [];
@@ -28,39 +23,36 @@ function ContextProvider(props) {
     setList(num);
   }, [reset]);
 
-  useEffect(() => {
-    activeTiles();
-    console.log("includes 1??", array.includes(1));
-    console.log("includes 2??", array2.includes(1));
-    count % 2 === 0
-      ? setArray((array) => [...array, selectedNumber])
-      : setArray2((array2) => [...array2, selectedNumber]);
-    // if match
-    if (array.length > 0) {
-      setArray([]);
-    }
-    if (array2.length > 0) {
-      setArray2([]);
-    }
-  }, [count]);
-
   const buttonToggle = (value) => {
     setCount((prev) => prev + 1);
 
     console.log("Context => ", value);
-    setSelectedNumber(value);
+
+    setArray((array) => [...array, value]);
   };
 
   const randomize = () => {
     setReset(!reset);
+
     setArray([]);
-    setArray2([]);
   };
 
-  const activeTiles = () => {};
+  console.log("array =>", array);
+  if (count === 2) {
+    if (array[0] === array[1]) {
+      console.log("same");
+      setArray([]);
+      setCount(0);
+    }
+    if (array[0] !== array[1]) {
+      console.log("not same");
+      setArray([]);
+      setCount(0);
+    }
+  }
 
   return (
-    <Context.Provider value={{ list, buttonToggle, randomize, array, array2 }}>
+    <Context.Provider value={{ list, buttonToggle, randomize }}>
       {props.children}
     </Context.Provider>
   );
