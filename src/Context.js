@@ -6,7 +6,7 @@ function ContextProvider(props) {
   const [list, setList] = useState([]);
   const [reset, setReset] = useState(false);
   const [array, setArray] = useState([]);
-
+  const [match, setMatch] = useState([]);
   const [count, setCount] = useState(0);
 
   useEffect(() => {
@@ -26,7 +26,7 @@ function ContextProvider(props) {
   const buttonToggle = (value) => {
     setCount((prev) => prev + 1);
 
-    console.log("Context => ", value);
+    // console.log("Context => ", value);
 
     setArray((array) => [...array, value]);
   };
@@ -35,24 +35,27 @@ function ContextProvider(props) {
     setReset(!reset);
 
     setArray([]);
+    setMatch([]);
   };
 
-  console.log("array =>", array);
+  // console.log("array =>", array);
   if (count === 2) {
     if (array[0] === array[1]) {
-      console.log("same");
+      // console.log("match");
+      setMatch((match) => [...match, array[0]]);
       setArray([]);
       setCount(0);
     }
     if (array[0] !== array[1]) {
-      console.log("not same");
+      // console.log("no mach");
       setArray([]);
       setCount(0);
     }
   }
+  // console.log("match", match);
 
   return (
-    <Context.Provider value={{ list, buttonToggle, randomize }}>
+    <Context.Provider value={{ list, buttonToggle, randomize, match }}>
       {props.children}
     </Context.Provider>
   );

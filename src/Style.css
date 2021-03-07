@@ -29,7 +29,7 @@ body {
   border: solid 1px black;
 }
 .tile:active {
-  animation: tilePress 1s linear;
+  animation: tilePress 10s linear;
   opacity: 1;
 }
 .tile.covered {
@@ -52,6 +52,8 @@ body {
 
 @keyframes tilePress {
   from {
+    color: black;
+
     transform: scale(1.1);
   }
   to {
